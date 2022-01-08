@@ -1,1 +1,5 @@
-cat gato
+3 4
+c g
+a a
+t t
+  o
