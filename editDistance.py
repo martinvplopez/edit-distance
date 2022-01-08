@@ -39,8 +39,23 @@ def editDistanceMemo(str1, str2):
 
     return t(len(str1), len(str2))
 
-
 def editDistanceTabu(str1, str2):
-    pass
+    n = len(str1) + 1
+    m = len(str2) + 1
+    table = np.zeros((n, m), dtype=int)
+    for i in range(1, n):
+        table[i][0] = i
+    for j in range(1, m):
+        table[0][j] = j
 
+    for i in range(1, n):
+        for j in range(1, m):
+            if str1[i-1] == str2[j-1]:
+                table[i][j] = table[i-1][j-1]
+            else:
+                table[i][j] = min(table[i - 1][j - 1], table[i - 1][j], table[i][j - 1]) + 1
+    return table[n-1][m-1]
+
+print(editDistanceTabu("cat", "gato"))
+print(editDistanceTabu("jajaja", "papa"))
 # print(editDistanceMemo("jajaaajkhfhafhafjafakfjaoifwo2iofaoijfpqoqwiuhefkjhafahfjhaf afah", "jfakfjafjañlfjpqpowjweoufwwufwuwf")) # Not possible with naive version
