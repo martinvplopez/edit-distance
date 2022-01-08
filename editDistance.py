@@ -58,10 +58,12 @@ def editDistanceTabu(str1, str2):
     return table[n-1][m-1]
 
 print(editDistanceTabu("cat", "gato"))
+print(editDistanceTabu("sunday", "saturday")) # 3
+print(editDistanceTabu("geek", "gesek")) # 1
 print(editDistanceTabu("jajaja", "papa"))
-# print(editDistanceMemo("cat", "gato")) # 2
-# print(editDistance("sunday", "saturday")) # 3
-# print(editDistanceMemo("geek", "gesek")) # 1
-# print(editDistanceMemo("jajaja", "papa")) # 4
+print(editDistanceMemo("cat", "gato")) # 2
+print(editDistanceMemo("sunday", "saturday")) # 3
+print(editDistanceMemo("geek", "gesek")) # 1
+print(editDistanceMemo("jajaja", "papa")) # 4
 #print(editDistanceMemo("",""))
 # print(editDistanceMemo("jajaaajkhfhafhafjafakfjaoifwo2iofaoijfpqoqwiuhefkjhafahfjhaf afah", "jfakfjafjañlfjpqpowjweoufwwufwuwf")) # Not possible with naive version
