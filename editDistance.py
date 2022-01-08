@@ -19,12 +19,11 @@ def editDistance(str1, str2):
         # If they don´t match we have to compute the minimum cost of the three possible
         else:
             return 1 + min(t(n - 1, m), t(n, m - 1), t(n - 1, m - 1))
-
     return t(len(str1), len(str2))
 
 
-def editDistanceMemo(str1, str2, memo={}):
-    def t(n, m):
+def editDistanceMemo(str1, str2):
+    def t(n, m, memo={}):
         key = (n, m)
         if key in memo:
             return memo[key]
@@ -45,7 +44,9 @@ def editDistanceTabu(str1, str2):
     pass
 
 
-# print(editDistanceMemo("cat", "gato"))
-# print(editDistanceMemo("sunday", "saturday"))
-# print(editDistanceMemo("geek", "gesek"))
-print(editDistanceMemo("jajaja", "papa"))
+# print(editDistanceMemo("cat", "gato")) # 2
+# print(editDistance("sunday", "saturday")) # 3
+# print(editDistanceMemo("geek", "gesek")) # 1
+# print(editDistanceMemo("jajaja", "papa")) # 4
+#print(editDistanceMemo("",""))
+# print(editDistanceMemo("jajaaajkhfhafhafjafakfjaoifwo2iofaoijfpqoqwiuhefkjhafahfjhaf afah", "jfakfjafjañlfjpqpowjweoufwwufwuwf")) # Not possible with naive version
