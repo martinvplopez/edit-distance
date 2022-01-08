@@ -43,10 +43,4 @@ def editDistanceMemo(str1, str2):
 def editDistanceTabu(str1, str2):
     pass
 
-
-# print(editDistanceMemo("cat", "gato")) # 2
-# print(editDistance("sunday", "saturday")) # 3
-# print(editDistanceMemo("geek", "gesek")) # 1
-# print(editDistanceMemo("jajaja", "papa")) # 4
-#print(editDistanceMemo("",""))
 # print(editDistanceMemo("jajaaajkhfhafhafjafakfjaoifwo2iofaoijfpqoqwiuhefkjhafahfjhaf afah", "jfakfjafjañlfjpqpowjweoufwwufwuwf")) # Not possible with naive version
