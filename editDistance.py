@@ -54,20 +54,7 @@ def editDistanceTabu(str1, str2):
                 table[i][j] = table[i-1][j-1]
             else:
                 table[i][j] = min(table[i - 1][j - 1], table[i - 1][j], table[i][j - 1]) + 1
-
-
-
-
     return table[n-1][m-1]
 
-print(editDistanceTabu("cat", "gato"))
-print(editDistanceTabu("jajaja", "papa"))
-
-
-# print(editDistanceMemo("cat", "gato")) # 2
-# print(editDistance("sunday", "saturday")) # 3
-# print(editDistanceMemo("geek", "gesek")) # 1
-# print(editDistanceMemo("jajaja", "papa")) # 4
-#print(editDistanceMemo("",""))
-
+# print(editDistanceTabu("cat", "gato"))
 # print(editDistanceMemo("jajaaajkhfhafhafjafakfjaoifwo2iofaoijfpqoqwiuhefkjhafahfjhaf afah", "jfakfjafjañlfjpqpowjweoufwwufwuwf")) # Not possible with naive version
