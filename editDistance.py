@@ -23,21 +23,59 @@ def editDistance(str1, str2):
 
 
 def editDistanceMemo(str1, str2):
-    def t(n, m, memo={}):
+
+    memo = {}
+    changed = []
+
+    def t(n, m):
         key = (n, m)
         if key in memo:
             return memo[key]
         if n == 0:
-            return m
+            memo[key] = m
+            return memo[key]
         if m == 0:
-            return n
+            memo[key] = n
+            return memo[key]
         if str1[n - 1] == str2[m - 1]:
             memo[key] = t(n - 1, m - 1)
             return memo[key]
         memo[key] = 1 + min(t(n - 1, m), t(n, m - 1), t(n - 1, m - 1))
         return memo[key]
 
-    return t(len(str1), len(str2))
+    def fill_taken(str1, str2):
+        i = len(str1)
+        k = len(str2)
+        # longest = i if i >= k else k
+        # last = memo[(i, k)]
+        # for j in reversed(memo):
+        #     if memo[j] != last:
+        #         changed.insert(0, longest)
+
+        if i >= k:
+            while i != k:
+                key1 = (i, k)
+                key2 = (i-1, k)
+                if memo[key1] != memo[key2]:
+                    changed.insert(0, i)
+                i = i - 1
+        else:
+            while i != k:
+                key1 = (i, k)
+                key2 = (i, k-1)
+                if memo[key1] != memo[key2]:
+                    changed.insert(0, k)
+                k = k - 1
+
+        while i > 0:
+            if memo[(i, i)] == memo[(i -1, i-1)] + 1:
+                changed.insert(0, i-1)
+        return
+
+    changes = t(len(str1), len(str2))
+    fill_taken(str1, str2)
+
+    return changes, changed
 
 def editDistanceTabu(str1, str2):
     n = len(str1) + 1

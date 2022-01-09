@@ -1,4 +1,4 @@
-import editDistance
+from editDistance import *
 from editDistance_Test import *
 
 # Lectura fichero entrada
@@ -29,7 +29,8 @@ print(str2)
 
 
 # Ejecución comportamiento Memoization y Tabulation
-print(editDistance.editDistanceMemo(str1, str2))
+changes, changed = editDistanceMemo(str1,str2)
+print(changes, changed)
 print(editDistance.editDistanceTabu(str1, str2))
 
 # Unit Test
