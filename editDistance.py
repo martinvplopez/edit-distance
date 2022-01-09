@@ -53,43 +53,38 @@ def editDistanceMemo(str1, str2):
         k = len(str2)
 
         if i >= k:
-            while i != k:
+            while i > 0 or k > 0:
                 key1 = (i, k)
-                key2 = (i-1, k)
-                if key2 in memo:
-                    if memo[key1] != memo[key2]:
-                        changed[i] = str1[i - 1]
-                        i = i - 1
+                key2 = (i - 1, k)
+
+                if key2 not in memo or memo[key1] <= memo[key2]:
+                    i = i - 1
+                    k = k - 1
+                    key2 = (i, k)
+                    if memo[key1] == memo[key2] + 1:
+                        changed[i+1] = str1[i]
+
                 else:
-                    while key2 not in memo and i != k:
-                        i = i - 1
-                        k = k - 1
-                        key2 = (i, k)
-                    if memo[key1] != memo[key2]:
+                    if memo[key1] == memo[key2] + 1:
                         changed[i] = str1[i - 1]
+                        i = i - 1
+
 
         else:
-            while i != k:
+            while i > 0 or k > 0:
                 key1 = (i, k)
-                key2 = (i, k-1)
-                if key2 in memo:
-                    if memo[key1] != memo[key2]:
-                        changed[k] = str2[k - 1]
-                        k = k - 1
+                key2 = (i, k - 1)
+
+                if key2 not in memo or memo[key1] <= memo[key2]:
+                    i = i - 1
+                    k = k - 1
+                    key2 = (i, k)
+                    if memo[key1] == memo[key2] + 1:
+                        changed[k+1] = str2[k]
                 else:
-                    while key2 not in memo and i != k:
-                        i = i - 1
-                        k = k - 1
-                        key2 = (i, k)
                     if memo[key1] != memo[key2]:
                         changed[k] = str2[k - 1]
-
-
-        while i > 0:
-            if memo[(i, i)] == memo[(i -1, i-1)] + 1:
-                changed[i] = str1[i-1]
-            i = i - 1
-        return
+                        k = k - 1
 
     changes = t(len(str1), len(str2))
     fill_taken(str1, str2)
