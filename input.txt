@@ -1,5 +1,8 @@
-3 4
-c g
-a a
-t t
-  o
+7 6
+c a
+a b
+b a
+a l
+l l
+l i
+o
