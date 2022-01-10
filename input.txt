@@ -1,7 +1,5 @@
-6 4
-h l
-o a
-l l
-a a
-l
-a
+2 4
+p p
+e e
+  p
+  e

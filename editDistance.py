@@ -104,7 +104,7 @@ def editDistanceMemo(str1, str2):
     changes = t(len(str1), len(str2))
     fill_taken(str1, str2)
 
-    return changes, changed
+    return changes, dict(sorted(changed.items()))
 
 def editDistanceTabu(str1, str2):
 
@@ -166,6 +166,6 @@ def editDistanceTabu(str1, str2):
     fill_table()
     fill_taken(str1, str2)
 
-    return table[n - 1][m - 1], changed
+    return table[n - 1][m - 1], dict(sorted(changed.items()))
 
 # print(editDistanceMemo("jajaaajkhfhafhafjafakfjaoifwo2iofaoijfpqoqwiuhefkjhafahfjhaf afah", "jfakfjafjañlfjpqpowjweoufwwufwuwf")) # Not possible with naive version
