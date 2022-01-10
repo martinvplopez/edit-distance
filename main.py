@@ -24,15 +24,17 @@ else:
             str2 = str2 + parts[1]
         else:
             str2 = str2 + parts[0]
-print("String1:",str1,"String2:",str2)
+print("\nString1:",str1,"String2:",str2, "\n")
 
 
 # Ejecución comportamiento Memoization y Tabulation
 mchanges, mchanged = editDistanceMemo(str1, str2)
+print("*Memoization*")
 print("Numero de operaciones",mchanges)
-print("Cambios realizados", mchanged)
+print("Cambios realizados", mchanged, "\n")
 
 tchanges, tchanged = editDistanceTabu(str1, str2)
+print("*Tabulation*")
 print("Numero de operaciones",tchanges)
 print("Cambios realizados", tchanged)
 # Unit Test
