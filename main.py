@@ -37,7 +37,8 @@ tchanges, tchanged = editDistanceTabu(str1, str2)
 print("*Tabulation*")
 print("Numero de operaciones",tchanges)
 print("Cambios realizados", tchanged)
+
 # Unit Test
 test=TestEdit()
 test.test_distance2()
-# test.test_distance1()
+test.test_distance1()
