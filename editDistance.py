@@ -107,28 +107,65 @@ def editDistanceMemo(str1, str2):
     return changes, changed
 
 def editDistanceTabu(str1, str2):
+
     n = len(str1) + 1
     m = len(str2) + 1
     table = np.zeros((n, m), dtype=int)
-    for i in range(1, n):
-        table[i][0] = i
-    for j in range(1, m):
-        table[0][j] = j
+    changed = {}
 
-    for i in range(1, n):
+    def fill_table():
+        for i in range(1, n):
+            table[i][0] = i
         for j in range(1, m):
-            if str1[i-1] == str2[j-1]:
-                table[i][j] = table[i-1][j-1]
-            else:
-                table[i][j] = min(table[i - 1][j - 1], table[i - 1][j], table[i][j - 1]) + 1
+            table[0][j] = j
 
-    return table[n-1][m-1]
+        for i in range(1, n):
+            for j in range(1, m):
+                if str1[i - 1] == str2[j - 1]:
+                    table[i][j] = table[i - 1][j - 1]
+                else:
+                    table[i][j] = min(table[i - 1][j - 1], table[i - 1][j], table[i][j - 1]) + 1
 
-#print(editDistanceTabu("cat", "gato"))
-#print(editDistanceTabu("jajaja", "papa"))
-# print(editDistanceMemo("cat", "gato")) # 2
-# print(editDistance("sunday", "saturday")) # 3
-# print(editDistanceMemo("geek", "gesek")) # 1
-# print(editDistanceMemo("jajaja", "papa")) # 4
-#print(editDistanceMemo("",""))
+        return
+
+    def fill_taken(str1, str2):
+
+        i = len(str1)
+        k = len(str2)
+
+        if i >= k:
+            while i > 0 or k > 0:
+                if k == 0:
+                    for l in range(i):
+                        changed[i] = str1[i - 1]
+                        i = i - 1
+                elif k > 0 and table[i][k] <= table[i - 1][k]:
+                    if table[i][k] == table[i - 1][k - 1] + 1:
+                        changed[i] = str1[i - 1]
+                    i = i - 1
+                    k = k - 1
+                else:
+                    changed[i] = str1[i - 1]
+                    i = i - 1
+
+        else:
+            while i > 0 or k > 0:
+                if i == 0:
+                    for l in range(k):
+                        changed[k] = str2[k - 1]
+                        k = k - 1
+                elif i > 0 and table[i][k] <= table[i][k - 1]:
+                    if table[i][k] == table[i - 1][k - 1] + 1:
+                        changed[k] = str2[k - 1]
+                    i = i - 1
+                    k = k - 1
+                else:
+                    changed[k] = str2[k - 1]
+                    k = k - 1
+
+    fill_table()
+    fill_taken(str1, str2)
+
+    return table[n - 1][m - 1], changed
+
 # print(editDistanceMemo("jajaaajkhfhafhafjafakfjaoifwo2iofaoijfpqoqwiuhefkjhafahfjhaf afah", "jfakfjafjañlfjpqpowjweoufwwufwuwf")) # Not possible with naive version

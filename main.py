@@ -28,11 +28,13 @@ print("String1:",str1,"String2:",str2)
 
 
 # Ejecución comportamiento Memoization y Tabulation
-changes, changed = editDistanceMemo(str1,str2)
-print("Numero de operaciones",changes)
-print("Cambios realizados", changed)
-# print(editDistance.editDistanceTabu(str1, str2))
+mchanges, mchanged = editDistanceMemo(str1, str2)
+print("Numero de operaciones",mchanges)
+print("Cambios realizados", mchanged)
 
+tchanges, tchanged = editDistanceTabu(str1, str2)
+print("Numero de operaciones",tchanges)
+print("Cambios realizados", tchanged)
 # Unit Test
 test=TestEdit()
 test.test_distance2()

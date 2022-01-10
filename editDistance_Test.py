@@ -18,21 +18,20 @@ class TestEdit(unittest.TestCase):
 
     def test_distance2(self):
         result1,_= editDistance.editDistanceMemo("cat", "gato")
-        result2= editDistance.editDistanceTabu("cat", "gato")
-        print(result1,result2)
-        # self.assertEqual(result1,result2)
-        #
-        # result1= editDistance.editDistanceMemo("", "")
-        # result2= editDistance.editDistanceTabu("", "")
-        # self.assertEqual(result1,result2)
-        #
-        # result1= editDistance.editDistanceMemo("","man")
-        # result2= editDistance.editDistanceTabu("","man")
-        # self.assertEqual(result1,result2)
-        #
-        # result1= editDistance.editDistanceMemo("Hello", "hello")
-        # result2= editDistance.editDistanceTabu("Hello", "hello")
-        # self.assertEqual(result1,result2)
+        result2,_= editDistance.editDistanceTabu("cat", "gato")
+        self.assertEqual(result1,result2)
+
+        result1,_= editDistance.editDistanceMemo("", "")
+        result2,_= editDistance.editDistanceTabu("", "")
+        self.assertEqual(result1,result2)
+
+        result1,_= editDistance.editDistanceMemo("","man")
+        result2,_= editDistance.editDistanceTabu("","man")
+        self.assertEqual(result1,result2)
+
+        result1,_= editDistance.editDistanceMemo("Hello", "hello")
+        result2,_= editDistance.editDistanceTabu("Hello", "hello")
+        self.assertEqual(result1,result2)
 
 if __name__ == '__main__':
     unittest.main()
