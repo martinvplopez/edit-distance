@@ -6,19 +6,19 @@ import numpy as np
 
 
 def editDistance(str1, str2):
-    def t(n, m):
+    def t(m, n):
         # If first string is empty there will be m insertions to be like str2
-        if n == 0:
-            return m
-        # If second string is empty there will be n deletions to be empty
         if m == 0:
             return n
+        # If second string is empty there will be n deletions to be empty
+        if n == 0:
+            return m
         # If chars are equal no operation is needed
-        if str1[n - 1] == str2[m - 1]:
-            return t(n - 1, m - 1)
+        if str1[m - 1] == str2[n - 1]:
+            return t(m - 1, n - 1)
         # If they don´t match we have to compute the minimum cost of the three possible
         else:
-            return 1 + min(t(n - 1, m), t(n, m - 1), t(n - 1, m - 1))
+            return 1 + min(t(m - 1, n), t(m, n - 1), t(m - 1, n - 1))
     return t(len(str1), len(str2))
 
 
@@ -27,25 +27,25 @@ def editDistanceMemo(str1, str2):
     memo = {}
     changed = {}
 
-    def t(n, m):
-        key = (n, m)
+    def t(m, n):
+        key = (m, n)
         if key in memo:
             return memo[key]
-        if n == 0 and m == 0:
+        if m == 0 and n == 0:
             memo[key] = 0
-            return memo[key]
-        if n == 0:
-            t(0, 0)
-            memo[key] = m
             return memo[key]
         if m == 0:
             t(0, 0)
             memo[key] = n
             return memo[key]
-        if str1[n - 1] == str2[m - 1]:
-            memo[key] = t(n - 1, m - 1)
+        if n == 0:
+            t(0, 0)
+            memo[key] = m
             return memo[key]
-        memo[key] = 1 + min(t(n - 1, m), t(n, m - 1), t(n - 1, m - 1))
+        if str1[m - 1] == str2[n - 1]:
+            memo[key] = t(m - 1, n - 1)
+            return memo[key]
+        memo[key] = 1 + min(t(m - 1, n), t(m, n - 1), t(m - 1, n - 1))
         return memo[key]
 
     def fill_taken(str1, str2):
@@ -108,19 +108,19 @@ def editDistanceMemo(str1, str2):
 
 def editDistanceTabu(str1, str2):
 
-    n = len(str1) + 1
-    m = len(str2) + 1
-    table = np.zeros((n, m), dtype=int)
+    m = len(str1) + 1
+    n = len(str2) + 1
+    table = np.zeros((m, n), dtype=int)
     changed = {}
 
     def fill_table():
-        for i in range(1, n):
+        for i in range(1, m):
             table[i][0] = i
-        for j in range(1, m):
+        for j in range(1, n):
             table[0][j] = j
 
-        for i in range(1, n):
-            for j in range(1, m):
+        for i in range(1, m):
+            for j in range(1, n):
                 if str1[i - 1] == str2[j - 1]:
                     table[i][j] = table[i - 1][j - 1]
                 else:
@@ -166,6 +166,6 @@ def editDistanceTabu(str1, str2):
     fill_table()
     fill_taken(str1, str2)
 
-    return table[n - 1][m - 1], dict(sorted(changed.items()))
+    return table[m - 1][n - 1], dict(sorted(changed.items()))
 
 # print(editDistanceMemo("jajaaajkhfhafhafjafakfjaoifwo2iofaoijfpqoqwiuhefkjhafahfjhaf afah", "jfakfjafjañlfjpqpowjweoufwwufwuwf")) # Not possible with naive version
